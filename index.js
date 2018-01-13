@@ -14,9 +14,6 @@ let conversation = watson.conversation({
 	version_date: '2018-01-09',
 })
 
-//Servindo arquivos estáticos
-app.use(express.static(path.join(__dirname, 'static')))
-
 //Payload
 let payload = {
 	workspace_id : 'd28d6c91-7c99-41fc-92c3-a307356bbf57',
@@ -24,6 +21,9 @@ let payload = {
 		text: null
 	}
 }
+
+//Servindo arquivos estáticos
+app.use(express.static(path.join(__dirname, 'static')))
 
 //Iniciando conexãocom socket
 io.on('connection', socket => {
