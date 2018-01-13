@@ -17,17 +17,22 @@ let conversation = watson.conversation({
 //Servindo arquivos estáticos
 app.use(express.static(path.join(__dirname, 'static')))
 
+//Payload
+let payload = {
+	workspace_id : 'd28d6c91-7c99-41fc-92c3-a307356bbf57',
+	input: {
+		text: 'Oi'
+	}
+}
+
 //Iniciando conexãocom socket
 io.on('connection', socket => {
 
 	//Recebendo mensagem
 	socket.on('message', input => {
 
-		//Payload
-		let payload = {
-			workspace_id : 'd28d6c91-7c99-41fc-92c3-a307356bbf57',
-			input: {'text': input}
-		}
+		//Atualizando a mensagem no Payload
+		payload.input.text = input
 
 		//Enviando mensagem pro watson e obtendo resposta
 		conversation.message(payload, (error, response) => {
@@ -38,6 +43,9 @@ io.on('connection', socket => {
 			else {
 				//Se não, Enviar a resposta do Watson para o cliente
 				socket.emit('message', response.output.text[0])
+
+				//E atualizar o contexto do payload
+				payload.context = response.context
 			}
 		})
 	})
