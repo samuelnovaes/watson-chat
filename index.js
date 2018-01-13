@@ -21,7 +21,7 @@ app.use(express.static(path.join(__dirname, 'static')))
 let payload = {
 	workspace_id : 'd28d6c91-7c99-41fc-92c3-a307356bbf57',
 	input: {
-		text: 'Oi'
+		text: null
 	}
 }
 
