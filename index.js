@@ -14,19 +14,19 @@ let conversation = watson.conversation({
 	version_date: '2018-01-09',
 })
 
-//Payload
-let payload = {
-	workspace_id : 'd28d6c91-7c99-41fc-92c3-a307356bbf57',
-	input: {
-		text: null
-	}
-}
-
 //Servindo arquivos estáticos
 app.use(express.static(path.join(__dirname, 'static')))
 
 //Iniciando conexãocom socket
 io.on('connection', socket => {
+
+	//Payload
+	let payload = {
+		workspace_id : 'd28d6c91-7c99-41fc-92c3-a307356bbf57',
+		input: {
+			text: null
+		}
+	}
 
 	//Recebendo mensagem
 	socket.on('message', input => {
